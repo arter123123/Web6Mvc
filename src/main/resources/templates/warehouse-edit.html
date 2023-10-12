@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>
+        Изменение информации о складах
+    </title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+    <form action="#" th:action="@{/warehouse/{id}(id=${id})}" th:object="${warehouseDto}" method="post">
+        <div class="mb-3">
+            <label for="warehouseName" class="form-label">Название склада</label>
+            <input type="text" class="form-control" id="warehouseName" th:field="${warehouseDto.warehouseName}" required="true">
+        </div>
+        <div class="mb-3">
+            <label for="typeWarehouse" class="form-label">Категория</label>
+            <select id="typeWarehouse" class="form-control" th:name="typeWarehouseId">
+                <option th:each="typeWarehouse : ${typeWarehouses}" th:value="${typeWarehouse.id}" th:text="${typeWarehouse.typeWarehouseName}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary button-fixed">
+                <span th:if="${id == null}">Добавить</span>
+                <span th:if="${id != null}">Обновить</span>
+            </button>
+            <a class="btn btn-secondary button-fixed" th:href="@{/warehouse}">
+                Назад
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
