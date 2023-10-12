@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>
+    Изменение информации о складах
+  </title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+  <form action="#" th:action="@{/warehousesmaterials/{id}(id=${id})}" th:object="${warehousesMaterialsDto}" method="post">
+    <div class="mb-3">
+      <label for="warehouse" class="form-label">Категория</label>
+      <select id="warehouse" class="form-control" th:name="warehouseId">
+        <option th:each="warehouse : ${warehouses}" th:value="${warehouse.id}" th:text="${warehouse.warehouseName}"></option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="material" class="form-label">Категория</label>
+      <select id="material" class="form-control" th:name="materialId">
+        <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.materialName}"></option>
+      </select>
+    </div>
+    <div class="col-mb-3">
+      <label for="amount" class="form-label">Количество</label>
+      <input type="number" class="form-control" id="amount" step="1" min="1" required th:field="${warehousesMaterialsDto.amount}">
+    </div>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary button-fixed">
+        <span th:if="${id == null}">Добавить</span>
+        <span th:if="${id != null}">Обновить</span>
+      </button>
+      <a class="btn btn-secondary button-fixed" th:href="@{/warehousesmaterials}">
+        Назад
+      </a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
